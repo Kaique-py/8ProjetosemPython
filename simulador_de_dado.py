@@ -1,7 +1,7 @@
 """Simulador de dado - Programa que gera um valor aleatório de 1 a 6"""
 import random
 import time
-import PySimpleGUI
+import PySimpleGUI as sg
 
 class SimuladorDeDado:
     def __init__(self):
@@ -9,22 +9,21 @@ class SimuladorDeDado:
         self.valor_maximo = 6
         self.mensagem = 'Quer jogar o dado? [s/n]'
         #layout da tela
-        layout = [
+        self.layout = [
             [sg.Text("Jogar o dado?")],
-            [sg.Buttom('SIM'), sg.Buttom("NÃO")]
+            [sg.Button('SIM'), sg.Button("NÃO")]
         ]
+    
+    def Iniciar(self):
         #criar janela
-        janela = sg.Window("Roll the Dice!", Layout=layout)
+        janela = sg.Window("Roll the Dice!", self.layout, size=(400,400))
         #ler valores da tela
         self.eventos, self.valores = janela.Read()
         #realizar algo com esses valores
-    
-    def Iniciar(self):
-        resposta = input(self.mensagem)
         try:
-            if resposta == 'S' or resposta == 's':
+            if self.eventos == 'SIM':
                 self.GerarValorDoDado()
-            elif resposta == 'N' or resposta == 'n':
+            elif self.eventos == 'NÃO':
                 print("Foi um prazer ter você por aqui. Até a próxima!")
             else:
                 print("Entrada inválida. Favor responder com S ou N.")
